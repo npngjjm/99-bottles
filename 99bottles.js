@@ -8,6 +8,27 @@ class Bottles {
   }
 
   verse(n) {
-    return;
+    return (
+      `${n === 0 ? "No more" : n} bottle${n === 1 ? "" : "s"}` +
+      " of beer on the wall, " +
+      `${n === 0 ? "no more" : n} bottle${n === 1 ? "" : "s"} of beer.\n` +
+      `${
+        n > 0
+          ? `Take ${n > 1 ? "one" : "it"} down and pss it around`
+          : "Go to the store and buy some more"
+      }, ` +
+      `${n - 1 < 0 ? 99 : n - 1 === 0 ? "no more" : n - 1} bottle${
+        n === 1 ? "" : "s"
+      }` +
+      " of beer on the wall.\n"
+    );
   }
 }
+
+const downTo = (max, min) => {
+  const numbers = [];
+  for (let n = max; n >= min; n--) {
+    numbers.push(n);
+  }
+  return numbers;
+};
