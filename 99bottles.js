@@ -3,25 +3,38 @@ class Bottles {
     return this.verses(99, 0);
   }
 
-  verses(hi, lo) {
-    return downTo(hi, lo).map((n) => this.verses(n).join("\n"));
+  verses(finish, start) {
+    return downTo(finish, start)
+      .map((verseNumber) => this.verses(verseNumber))
+      .join("\n");
   }
 
-  verse(n) {
-    return (
-      `${n === 0 ? "No more" : n} bottle${n === 1 ? "" : "s"}` +
-      " of beer on the wall, " +
-      `${n === 0 ? "no more" : n} bottle${n === 1 ? "" : "s"} of beer.\n` +
-      `${
-        n > 0
-          ? `Take ${n > 1 ? "one" : "it"} down and pss it around`
-          : "Go to the store and buy some more"
-      }, ` +
-      `${n - 1 < 0 ? 99 : n - 1 === 0 ? "no more" : n - 1} bottle${
-        n === 1 ? "" : "s"
-      }` +
-      " of beer on the wall.\n"
-    );
+  verse(number) {
+    return this.verseFor(number).text();
+  }
+
+  verseFor(number) {
+    switch (number) {
+      case 0: return new Verse(number, NoMore);
+      case 1: return new Verse(number, LastOne);
+      case 2: return new Verse(number, Penultimate);
+      case 3: return new Verse(number, Default);
+    }
+  }
+}
+
+class Verse {
+  constructor(number, lyrics) {
+    this.number = number;
+    this.lyrics = lyrics;
+  }
+
+  number() {
+    return this.number;
+  }
+
+  text() {
+    return this.lyrics(this);
   }
 }
 
