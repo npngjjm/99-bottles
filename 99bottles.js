@@ -1,66 +1,102 @@
-const NoMore = verse =>
-  'No more bottles of beer on the wall, ' +
-  'no more bottles of beer.\n' +
-  'Go to the store and buy some more' +
-  '99 bottles of beer on the wall.\n';
 
-const LastOne = verse =>
-  '1 bottle of beer on the wall, ' +
-  '1 bottle of beer.\n' +
-  'Take it down and pss it around' +
-  'no more bottles of beer on the wall.\n';
-
-const Penultimate = verse =>
-  '2 bottles of beer on the wall, ' +
-  '2 bottles of beer.\n' +
-  'Take one down and pss it around' +
-  '1 bottle of beer on the wall.\n';
-
-const Default = verse =>
-  `${verse.number} bottles of beer on the wall, ` +
-  `${verse.number} bottles of beer.\n` +
-  'Take one down and pss it around' +
-  `${verse.number- 1} bottles of beer on the wall.\n`;
-  
 class Bottles {
   song() {
     return this.verses(99, 0);
   }
 
-  verses(finish, start) {
-    return downTo(finish, start)
-      .map((verseNumber) => this.verses(verseNumber))
+  verses(bottlesAtStart, bottlesAtEnd) {
+    return downTo(bottlesAtStart, bottlesAtEnd)
+      .map((bottles) => this.verses(bottles))
       .join("\n");
   }
 
-  verse(number) {
-    return this.verseFor(number).text();
+  verse(bottles) {
+    return new Round(bottles).toString();
+  }
+}
+
+class Round {
+  constructor(bottles) {
+    this.bottles = bottles;
   }
 
-  verseFor(number) {
-    switch (number) {
-      case 0: return new Verse(number, NoMore);
-      case 1: return new Verse(number, LastOne);
-      case 2: return new Verse(number, Penultimate);
-      case 3: return new Verse(number, Default);
+  toString() {
+    return this.challenge() + this.response();
+  }
+
+  challenge() {
+    return (
+      capitalize(this.bottlesOfBeer()) + ' ' +
+      this.onWall() + ', ' +
+      this.bottlesOfBeer() + '.\n'
+    );
+  }
+
+  response() {
+    return (
+      this.goToTheStoreOrTakeOneDown() + ', ' +
+      this.bottlesOfBeer() + ' ' +
+      this.onWall() + '.\n'
+    );
+  }
+
+  bottlesOfBeer() {
+    return (
+      this.anglicizedBottleCount() + ' ' +
+      this.pluralizedBottleForm() + ' of ' +
+      this.beer()
+    );
+  }
+
+  beer() {
+    return 'beer';
+  }
+
+  onWall() {
+    return 'on the wall';
+  }
+
+  pluralizedBottleForm() {
+    return this.isLastBeer() ? 'bottle' : 'bottles';
+  }
+
+  anglicizedBottleCount() {
+    return this.isAllOut() ? 'no more' : this.bottles.toString();
+  }
+
+  goToTheStoreOrTakeOneDown() {
+    if(this.isAllOut()) {
+      this.bottles = 99;
+      return this.buyNewBeer();
+    } else {
+      const lyrics = this.drinkBeer();
+      this.bottles--;
+      return lyrics;
     }
   }
+
+  buyNewBeer() {
+    return 'Go to the store and buy some more';
+  }
+
+  drinkBeer() {
+    return `Take ${this.itOrOne} down and pass it around`;
+  }
+
+  itOrOne() {
+    return this.isLastBeer() ? 'it' : 'one';
+  }
+
+  isAllOut() {
+    return this.bottles === 0;
+  }
+
+  isLastBeer() {
+    return this.bottles === 1;
+  }
 }
 
-class Verse {
-  constructor(number, lyrics) {
-    this.number = number;
-    this.lyrics = lyrics;
-  }
-
-  number() {
-    return this.number;
-  }
-
-  text() {
-    return this.lyrics(this);
-  }
-}
+const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 const downTo = (max, min) => {
   const numbers = [];
