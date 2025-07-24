@@ -23,7 +23,7 @@ class Bottles {
           "1 bottle of beer on the wall, " +
           "1 bottle of beer.\n" +
           "Take it down and pass it around" +
-          "no more bottles of beer on the wall.\n"
+          `${this.quantity()} bottles of beer on the wall.\n`
         );
       default:
         return (
@@ -42,6 +42,10 @@ class Bottles {
     else {
       return "bottles";
     }
+  }
+
+  quantity() {
+    return "no more";
   }
 }
 
