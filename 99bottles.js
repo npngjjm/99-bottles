@@ -20,17 +20,18 @@ class Bottles {
         );
       case 1:
         return (
-          "1 bottle of beer on the wall, " +
-          "1 bottle of beer.\n" +
-          "Take it down and pass it around" +
-          `${this.quantity(number-1)} bottles ` +
+          `${number} ${this.container(number)} of beer on the wall, ` +
+          `${number} ${this.container(number)} of beer.\n` +
+          `Take ${this.pronoun(number)} down and pass it around` +
+          `${this.quantity(number-1)} ` +
+          `${this.container(number-1)} ` +
           "of beer on the wall.\n"
         );
       default:
         return (
-          `${number} bottles of beer on the wall, ` +
-          `${number} bottles of beer.\n` +
-          "Take one down and pass it around" +
+          `${number} ${this.container(number)} of beer on the wall, ` +
+          `${number} ${this.container(number)} of beer.\n` +
+          `Take ${this.pronoun(number)} down and pass it around` +
           `${this.quantity(number-1)} ` +
           `${this.container(number-1)} ` +
           "of beer on the wall.\n"
@@ -44,6 +45,15 @@ class Bottles {
     }
     else {
       return "bottles";
+    }
+  }
+
+  pronoun(number) {
+    if(number === 1) {
+      return "it";
+    }
+    else {
+      return "one";
     }
   }
 
