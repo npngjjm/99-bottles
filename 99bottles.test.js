@@ -30,6 +30,31 @@ class Bottles {
   }
 
   container(number) {
+    return new BottleNumber(number).container(number);
+  }
+
+  pronoun(number) {
+    return new BottleNumber(number).pronoun(number);
+  }
+
+  quantity(number) {
+    return new BottleNumber(number).quantity(number);
+  }
+
+  action(number) {
+    return new BottleNumber(number).action(number);
+  }
+
+  successor(number) {
+    return new BottleNumber(number).successor(number);
+  }
+}
+
+class BottleNumber {
+  constructor(number) {
+    this.number = number;
+  }
+  container(number) {
     if (number === 1) {
       return "bottle";
     } else {
