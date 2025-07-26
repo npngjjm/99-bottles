@@ -30,7 +30,7 @@ class Bottles {
   }
 
   container(number) {
-    return new BottleNumber(number).container(number);
+    return new BottleNumber(number).container();
   }
 
   pronoun(number) {
@@ -38,15 +38,15 @@ class Bottles {
   }
 
   quantity(number) {
-    return new BottleNumber(number).quantity(number);
+    return new BottleNumber(number).quantity();
   }
 
   action(number) {
-    return new BottleNumber(number).action(number);
+    return new BottleNumber(number).action();
   }
 
   successor(number) {
-    return new BottleNumber(number).successor(number);
+    return new BottleNumber(number).successor();
   }
 }
 
@@ -54,8 +54,8 @@ class BottleNumber {
   constructor(number) {
     this.number = number;
   }
-  container(number) {
-    if (number === 1) {
+  container() {
+    if (this.number === 1) {
       return "bottle";
     } else {
       return "bottles";
@@ -70,27 +70,27 @@ class BottleNumber {
     }
   }
 
-  quantity(number) {
-    if (number === 0) {
+  quantity() {
+    if (this.number === 0) {
       return "no more";
     } else {
-      return number.toString();
+      return this.number.toString();
     }
   }
 
-  action(number) {
-    if (number === 0) {
+  action() {
+    if (this.number === 0) {
       return "Go to the store and buy some more, ";
     } else {
-      return `Take ${this.pronoun(number)} down and pass it around, `;
+      return `Take ${this.pronoun(this.number)} down and pass it around, `;
     }
   }
 
-  successor(number) {
-    if (number === 0) {
+  successor() {
+    if (this.number === 0) {
       return 99;
     } else {
-      return number - 1;
+      return this.number - 1;
     }
   }
 }
