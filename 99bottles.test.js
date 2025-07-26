@@ -17,27 +17,16 @@ class Bottles {
   }
 
   verse(number) {
-    switch (number) {
-      case 0:
-        return (
-          `${capitalize(this.quantity(number))} ` +
-          `bottles of beer on the wall, ` +
-          "no more bottles of beer.\n" +
-          `${this.action(number)}` +
-          "99 bottles of beer on the wall.\n"
-        );
-      default:
-        return (
-          `${capitalize(this.quantity(number))} ` +
-          `${this.container(number)} ` +
-          `of beer on the wall, ` +
-          `${number} ${this.container(number)} of beer.\n` +
-          `${this.action(number)}` +
-          `${this.quantity(number - 1)} ` +
-          `${this.container(number - 1)} ` +
-          "of beer on the wall.\n"
-        );
-    }
+    return (
+      `${capitalize(this.quantity(number))} ` +
+      `${this.container(number)} ` +
+      `of beer on the wall, ` +
+      `${this.quantity(number)} ${this.container(number)} of beer.\n` +
+      `${this.action(number)}` +
+      `${this.quantity(this.successor(number))} ` +
+      `${this.container(this.successor(number))} ` +
+      "of beer on the wall.\n"
+    );
   }
 
   container(number) {
@@ -69,6 +58,14 @@ class Bottles {
       return "Go to the store and buy some more, ";
     } else {
       return `Take ${this.pronoun(number)} down and pass it around, `;
+    }
+  }
+
+  successor(number) {
+    if (number === 0) {
+      return 99;
+    } else {
+      return number - 1;
     }
   }
 }
