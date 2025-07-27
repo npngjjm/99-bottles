@@ -6,6 +6,16 @@ function capitalize(str) {
 }
 
 class Bottles {
+  bottleNumberFor(number) {
+    let bottleNumberClass;
+    if (number === 0) {
+      bottleNumberClass = BottleNumber0;
+    } else {
+      bottleNumberClass = BottleNumber;
+    }
+
+    return new bottleNumberClass(number);
+  }
   song() {
     return this.verses(99, 0);
   }
@@ -17,16 +27,14 @@ class Bottles {
   }
 
   verse(number) {
-    const bottleNumber = new BottleNumber(number);
-    const nextBottleNumber = new BottleNumber(bottleNumber.successor());
+    const bottleNumber = this.bottleNumberFor(number);
+    const nextBottleNumber = this.bottleNumberFor(bottleNumber.successor());
+
     return (
-      `${capitalize(bottleNumber.quantity())} ` +
-      `${bottleNumber.container()} ` +
-      `of beer on the wall, ` +
+      capitalize(`${bottleNumber} of beer on the wall, `) +
       `${bottleNumber} of beer.\n` +
       `${bottleNumber.action()}` +
-      `${nextBottleNumber} ` +
-      "of beer on the wall.\n"
+      `${nextBottleNumber} of beer on the wall.\n`
     );
   }
 }
@@ -56,27 +64,29 @@ class BottleNumber {
   }
 
   quantity() {
-    if (this.number === 0) {
-      return "no more";
-    } else {
-      return this.number.toString();
-    }
+    return this.number.toString();
   }
 
   action() {
-    if (this.number === 0) {
-      return "Go to the store and buy some more, ";
-    } else {
-      return `Take ${this.pronoun()} down and pass it around, `;
-    }
+    return `Take ${this.pronoun()} down and pass it around, `;
   }
 
   successor() {
-    if (this.number === 0) {
-      return 99;
-    } else {
-      return this.number - 1;
-    }
+    return this.number - 1;
+  }
+}
+
+class BottleNumber0 extends BottleNumber {
+  quantity() {
+    return "no more";
+  }
+
+  action() {
+    return "Go to the store and buy some more, ";
+  }
+
+  successor() {
+    return 99;
   }
 }
 
