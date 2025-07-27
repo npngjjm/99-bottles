@@ -23,10 +23,9 @@ class Bottles {
       `${capitalize(bottleNumber.quantity())} ` +
       `${bottleNumber.container()} ` +
       `of beer on the wall, ` +
-      `${bottleNumber.quantity()} ${bottleNumber.container()} of beer.\n` +
+      `${bottleNumber} of beer.\n` +
       `${bottleNumber.action()}` +
-      `${nextBottleNumber.quantity()} ` +
-      `${nextBottleNumber.container()} ` +
+      `${nextBottleNumber} ` +
       "of beer on the wall.\n"
     );
   }
@@ -35,6 +34,10 @@ class Bottles {
 class BottleNumber {
   constructor(number) {
     this.number = number;
+  }
+
+  toString() {
+    return `${this.quantity()} ${this.container()}`;
   }
   container() {
     if (this.number === 1) {
