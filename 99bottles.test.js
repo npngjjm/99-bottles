@@ -17,36 +17,18 @@ class Bottles {
   }
 
   verse(number) {
+    const bottleNumber = new BottleNumber(number);
+    const nextBottleNumber = new BottleNumber(bottleNumber.successor());
     return (
-      `${capitalize(this.quantity(number))} ` +
-      `${this.container(number)} ` +
+      `${capitalize(bottleNumber.quantity())} ` +
+      `${bottleNumber.container()} ` +
       `of beer on the wall, ` +
-      `${this.quantity(number)} ${this.container(number)} of beer.\n` +
-      `${this.action(number)}` +
-      `${this.quantity(this.successor(number))} ` +
-      `${this.container(this.successor(number))} ` +
+      `${bottleNumber.quantity()} ${bottleNumber.container()} of beer.\n` +
+      `${bottleNumber.action()}` +
+      `${nextBottleNumber.quantity()} ` +
+      `${nextBottleNumber.container()} ` +
       "of beer on the wall.\n"
     );
-  }
-
-  container(number) {
-    return new BottleNumber(number).container();
-  }
-
-  pronoun(number) {
-    return new BottleNumber(number).pronoun(number);
-  }
-
-  quantity(number) {
-    return new BottleNumber(number).quantity();
-  }
-
-  action(number) {
-    return new BottleNumber(number).action();
-  }
-
-  successor(number) {
-    return new BottleNumber(number).successor();
   }
 }
 
@@ -62,8 +44,8 @@ class BottleNumber {
     }
   }
 
-  pronoun(number) {
-    if (number === 1) {
+  pronoun() {
+    if (this.number === 1) {
       return "it";
     } else {
       return "one";
@@ -82,7 +64,7 @@ class BottleNumber {
     if (this.number === 0) {
       return "Go to the store and buy some more, ";
     } else {
-      return `Take ${this.pronoun(this.number)} down and pass it around, `;
+      return `Take ${this.pronoun()} down and pass it around, `;
     }
   }
 
