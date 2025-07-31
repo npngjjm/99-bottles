@@ -36,11 +36,13 @@ class BottleNumber {
 
   static for(number) {
     let bottleNumberClass;
-    try {
-      bottleNumberClass = eval(`BottleNumber${number}`);
-    } catch (e) {
-      bottleNumberClass = BottleNumber;
-    }
+
+    bottleNumberClass =
+      {
+        0: BottleNumber0,
+        1: BottleNumber1,
+        6: BottleNumber6,
+      }[number] || BottleNumber;
 
     return new bottleNumberClass(number);
   }
