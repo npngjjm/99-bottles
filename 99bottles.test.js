@@ -34,15 +34,19 @@ class BottleNumber {
     this.number = number;
   }
 
+  static canHandle(number) {
+    return true;
+  }
+
   static for(number) {
     let bottleNumberClass;
 
-    bottleNumberClass =
-      {
-        0: BottleNumber0,
-        1: BottleNumber1,
-        6: BottleNumber6,
-      }[number] || BottleNumber;
+    bottleNumberClass = [
+      BottleNumber0,
+      BottleNumber1,
+      BottleNumber6,
+      BottleNumber,
+    ].find((candidate) => candidate.canHandle(number));
 
     return new bottleNumberClass(number);
   }
@@ -73,6 +77,9 @@ class BottleNumber {
 }
 
 class BottleNumber0 extends BottleNumber {
+  static canHandle(number) {
+    return number === 0;
+  }
   quantity() {
     return "no more";
   }
@@ -87,6 +94,9 @@ class BottleNumber0 extends BottleNumber {
 }
 
 class BottleNumber1 extends BottleNumber {
+  static canHandle(number) {
+    return number === 1;
+  }
   container() {
     return "bottle";
   }
@@ -97,6 +107,9 @@ class BottleNumber1 extends BottleNumber {
 }
 
 class BottleNumber6 extends BottleNumber {
+  static canHandle(number) {
+    return number === 6;
+  }
   quantity() {
     return "1";
   }
