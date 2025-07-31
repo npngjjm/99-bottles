@@ -22,6 +22,7 @@ class Bottles {
 
     return new bottleNumberClass(number);
   }
+
   song() {
     return this.verses(99, 0);
   }
@@ -33,8 +34,8 @@ class Bottles {
   }
 
   verse(number) {
-    const bottleNumber = this.bottleNumberFor(number);
-    const nextBottleNumber = this.bottleNumberFor(bottleNumber.successor());
+    const bottleNumber = BottleNumber.for(number);
+    const nextBottleNumber = bottleNumber.successor();
 
     return (
       capitalize(`${bottleNumber} of beer on the wall, `) +
@@ -48,6 +49,23 @@ class Bottles {
 class BottleNumber {
   constructor(number) {
     this.number = number;
+  }
+
+  static for(number) {
+    let bottleNumberClass;
+    switch (number) {
+      case 0:
+        bottleNumberClass = BottleNumber0;
+        break;
+      case 1:
+        bottleNumberClass = BottleNumber1;
+        break;
+      default:
+        bottleNumberClass = BottleNumber;
+        break;
+    }
+
+    return new bottleNumberClass(number);
   }
 
   toString() {
@@ -71,7 +89,7 @@ class BottleNumber {
   }
 
   successor() {
-    return this.number - 1;
+    return BottleNumber.for(this.number - 1);
   }
 }
 
@@ -85,7 +103,7 @@ class BottleNumber0 extends BottleNumber {
   }
 
   successor() {
-    return 99;
+    return BottleNumber.for(99);
   }
 }
 
