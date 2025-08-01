@@ -28,6 +28,12 @@ class Bottles {
   }
 }
 
+class BottleVerse {
+  constructor(number) {
+    this.number = number;
+  }
+}
+
 class BottleNumber {
   constructor(number) {
     this.number = number;
