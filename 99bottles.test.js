@@ -6,6 +6,9 @@ function capitalize(str) {
 }
 
 class Bottles {
+  constructor(verseTemplate = BottleVerse) {
+    this.verseTemplate = BottleVerse;
+  }
   song() {
     return this.verses(99, 0);
   }
@@ -17,7 +20,17 @@ class Bottles {
   }
 
   verse(number) {
-    const bottleNumber = BottleNumber.for(number);
+    return new this.verseTemplate(number).lyrics();
+  }
+}
+
+class BottleVerse {
+  constructor(number) {
+    this.number = number;
+  }
+
+  lyrics() {
+    const bottleNumber = BottleNumber.for(this.number);
 
     return (
       capitalize(`${bottleNumber} of beer on the wall, `) +
@@ -25,12 +38,6 @@ class Bottles {
       `${bottleNumber.action()}` +
       `${bottleNumber.successor()} of beer on the wall.\n`
     );
-  }
-}
-
-class BottleVerse {
-  constructor(number) {
-    this.number = number;
   }
 }
 
