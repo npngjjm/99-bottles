@@ -18,13 +18,12 @@ class Bottles {
 
   verse(number) {
     const bottleNumber = BottleNumber.for(number);
-    const nextBottleNumber = bottleNumber.successor();
 
     return (
       capitalize(`${bottleNumber} of beer on the wall, `) +
       `${bottleNumber} of beer.\n` +
       `${bottleNumber.action()}` +
-      `${nextBottleNumber} of beer on the wall.\n`
+      `${bottleNumber.successor()} of beer on the wall.\n`
     );
   }
 }
@@ -34,6 +33,10 @@ class BottleNumber {
     this.number = number;
   }
 
+  static register(candidate) {
+    BottleNumber.registry.unshift(candidate);
+  }
+
   static canHandle(number) {
     return true;
   }
@@ -41,12 +44,9 @@ class BottleNumber {
   static for(number) {
     let bottleNumberClass;
 
-    bottleNumberClass = [
-      BottleNumber0,
-      BottleNumber1,
-      BottleNumber6,
-      BottleNumber,
-    ].find((candidate) => candidate.canHandle(number));
+    bottleNumberClass = BottleNumber.registry.find((candidate) =>
+      candidate.canHandle(number)
+    );
 
     return new bottleNumberClass(number);
   }
@@ -76,6 +76,8 @@ class BottleNumber {
   }
 }
 
+BottleNumber.registry = [BottleNumber];
+
 class BottleNumber0 extends BottleNumber {
   static canHandle(number) {
     return number === 0;
@@ -93,6 +95,8 @@ class BottleNumber0 extends BottleNumber {
   }
 }
 
+BottleNumber.register(BottleNumber0);
+
 class BottleNumber1 extends BottleNumber {
   static canHandle(number) {
     return number === 1;
@@ -106,6 +110,8 @@ class BottleNumber1 extends BottleNumber {
   }
 }
 
+BottleNumber.register(BottleNumber1);
+
 class BottleNumber6 extends BottleNumber {
   static canHandle(number) {
     return number === 6;
@@ -118,6 +124,8 @@ class BottleNumber6 extends BottleNumber {
     return "six-pack";
   }
 }
+
+BottleNumber.register(BottleNumber6);
 
 const downTo = (max, min) => {
   const numbers = [];
