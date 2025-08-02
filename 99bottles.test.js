@@ -30,11 +30,14 @@ class BottleVerse {
   }
 
   static lyrics(number) {
-    return new BottleVerse(number).lyrics();
+    return new BottleVerse(BottleNumber.for(number)).lyrics();
   }
 
   lyrics() {
-    const bottleNumber = BottleNumber.for(this.number);
+    const bottleNumber =
+      this.number instanceof BottleNumber
+        ? this.number
+        : BottleNumber.for(this.number);
 
     return (
       capitalize(`${bottleNumber} of beer on the wall, `) +
