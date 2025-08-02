@@ -25,25 +25,24 @@ class Bottles {
 }
 
 class BottleVerse {
-  constructor(number) {
-    this.number = number;
+  constructor(bottleNumber) {
+    this.bottleNumber = bottleNumber;
+  }
+
+  static for(number) {
+    return new BottleVerse(BottleNumber.for(number));
   }
 
   static lyrics(number) {
-    return new BottleVerse(BottleNumber.for(number)).lyrics();
+    return BottleVerse.for(number).lyrics();
   }
 
   lyrics() {
-    const bottleNumber =
-      this.number instanceof BottleNumber
-        ? this.number
-        : BottleNumber.for(this.number);
-
     return (
-      capitalize(`${bottleNumber} of beer on the wall, `) +
-      `${bottleNumber} of beer.\n` +
-      `${bottleNumber.action()}` +
-      `${bottleNumber.successor()} of beer on the wall.\n`
+      capitalize(`${this.bottleNumber} of beer on the wall, `) +
+      `${this.bottleNumber} of beer.\n` +
+      `${this.bottleNumber.action()}` +
+      `${this.bottleNumber.successor()} of beer on the wall.\n`
     );
   }
 }
