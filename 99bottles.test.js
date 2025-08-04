@@ -5,7 +5,7 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-class Bottles {
+class CountDownSong {
   constructor(verseTemplate = BottleVerse) {
     this.verseTemplate = BottleVerse;
   }
@@ -166,7 +166,7 @@ describe("Bottles", () => {
       "98 bottles of beer.\n" +
       "Take one down and pass it around, " +
       "97 bottles of beer on the wall.\n";
-    expect(new Bottles().verses(99, 98)).toBe(expected);
+    expect(new CountDownSong().verses(99, 98)).toBe(expected);
   });
 
   test("a few verses", () => {
@@ -185,7 +185,7 @@ describe("Bottles", () => {
       "no more bottles of beer.\n" +
       "Go to the store and buy some more, " +
       "99 bottles of beer on the wall.\n";
-    expect(new Bottles().verses(2, 0)).toBe(expected);
+    expect(new CountDownSong().verses(2, 0)).toBe(expected);
   });
   test("the whole song", () => {
     const expected = `99 bottles of beer on the wall, 99 bottles of beer.
@@ -488,7 +488,7 @@ Take it down and pass it around, no more bottles of beer on the wall.
 No more bottles of beer on the wall, no more bottles of beer.
 Go to the store and buy some more, 99 bottles of beer on the wall.
 `;
-    expect(new Bottles().song()).toBe(expected);
+    expect(new CountDownSong().song()).toBe(expected);
   });
 });
 
@@ -536,5 +536,23 @@ describe("BottleVerse", () => {
       "Go to the store and buy some more, " +
       "99 bottles of beer on the wall.\n";
     expect(BottleVerse.lyrics(0)).toBe(expected);
+  });
+
+  test("verse 6", () => {
+    const expected =
+      "1 six-pack of beer on the wall, " +
+      "1 six-pack of beer.\n" +
+      "Take one down and pass it around, " +
+      "5 bottles of beer on the wall.\n";
+    expect(BottleVerse.lyrics(6)).toBe(expected);
+  });
+
+  test("verse 7", () => {
+    const expected =
+      "7 bottles of beer on the wall, " +
+      "7 bottles of beer.\n" +
+      "Take one down and pass it around, " +
+      "1 six-pack of beer on the wall.\n";
+    expect(BottleVerse.lyrics(7)).toBe(expected);
   });
 });
